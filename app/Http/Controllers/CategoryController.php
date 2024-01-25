@@ -11,6 +11,7 @@ use App\Models\Category;
 // use Image;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Termwind\Components\Dd;
 
 class CategoryController extends Controller
 {
@@ -38,27 +39,35 @@ class CategoryController extends Controller
 
 public function store(Request $request)
 {
+    try {
+        
+   
     // return $request->all();
+
     $validatedData = $request->validate([
         'category_name' => 'required|unique:categories',
-        'slug' => 'required|unique:categories',
         'image' => 'required',
     ]);
 
-     $category = Category::create([
-        'category_name' => $validatedData['category_name'],
-        'slug' => $validatedData['slug'],
-    ]);
 
-    if (!empty($validatedData['image'])) {
-        $newImageName = $category->id . '.' . $validatedData['image']->getClientOriginalExtension();
-        $uplodedirectory = 'uploads/category';
-        $validatedData['image']->move($uplodedirectory, $newImageName);
-        $category->image = $newImageName;
-        $category->save();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = 'sub_cate'.time() . '.' . $file->getClientOriginalExtension();
+            // $filePath = $request->file('image')->storeAs('public/uploaded/subcategory', $filename);
+            $file->move(public_path('uploads/category'), $filename);
+            $validatedData['image'] = $filename;
+        }
+
+        $category = Category::create([
+            'category_name' => $validatedData['category_name'],
+            'image'=>$filename
+        ]);
+        return redirect()->back()->with('success', 'Category created successfully!');
+    } catch (\Throwable $th) {
+        return redirect()->back()->with('error', 'Category error!');
     }
-
-    return redirect()->back()->with('success', 'Category created successfully!');
+   
 }
 
 

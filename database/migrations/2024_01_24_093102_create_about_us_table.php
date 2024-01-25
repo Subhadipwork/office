@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image');
             $table->string('career');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

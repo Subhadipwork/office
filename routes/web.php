@@ -76,7 +76,7 @@ Route::prefix('product')->name('product.')->group(function () {
 });
 
 Route::resource('admin/blog',BlogController::class);
-
+Route::get('admin/blog/status/{id}', [BlogController::class, 'status'])->name('admin.blog.status');
 Route::resource('admin/project', ProjectController::class);
 Route::post('admin/project/updateStatus', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
 Route::get('admin/project/removeimage/{id}', [ProjectController::class, 'projectremoveimage'])->name('project.removeimage');
@@ -90,6 +90,7 @@ Route::get('admin/faq/status/{id}', [FaqController::class, 'status'])->name('adm
 
 
 Route::resource('admin/banner', BannerController::class);
+Route::get('admin/banner/status/{id}', [BannerController::class, 'status'])->name('admin.banner.status');
 
 
 
@@ -106,6 +107,12 @@ Route::get('/subcategory/{id}', [HomeController::class, 'subcategory'])->name('s
 Route::get('front/product/{id}', [FrontendProductController::class, 'index'])->name('product.details');
 Route::get('/project',[FrontendProjectController::class,'index'])->name('frontend.project');
 Route::get('/project/{id}', [FrontendProjectController::class, 'details'])->name('frontend.project.details');
+
+
+Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/blog/{id}', [HomeController::class, 'blogDetails'])->name('blogDetails');
+
+Route::get('/AboutUs', [HomeController::class, 'aboutUs'])->name('aboutUs');
 
 Route::post('contact', [ContactUsController::class, 'store'])->name('frontend.contact.store');
 

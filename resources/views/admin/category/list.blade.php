@@ -42,7 +42,6 @@
                                     <tr>
                                         <th>id</th>
                                         <th>Category Name</th>
-                                        <th>Category Slug</th>
                                         <th>Category Image</th>
                                         <th>Status</th>
                                         <th>Delete</th>
@@ -55,10 +54,10 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $category->category_name }}</td>
-                                                <td>{{ $category->slug }}</td>
+                                 
 
                                                 @if (!empty($category->image))
-                                                    <td><img src="{{ asset('/uploaded/category/' . $category->image) }}"
+                                                    <td><img src="{{ asset('/uploads/category/' . $category->image) }}"
                                                             width="100px" height="100px"></td>
                                                 @else
                                                     <td><img src="https://picsum.photos/200/300" width="100px"

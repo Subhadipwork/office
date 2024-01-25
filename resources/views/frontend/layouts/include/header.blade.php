@@ -27,7 +27,7 @@
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.php">About Us</a>
+                            <a class="nav-link" href="{{route('aboutUs')}}">About Us</a>
                         </li>
                         <li class="nav-item">
                             <div class="dropdown">
@@ -45,7 +45,7 @@
                             <a class="nav-link" href="{{route('frontend.project')}}">Project</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="blog.php">Blog</a>
+                            <a class="nav-link" href="{{route('blog')}}">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('frontend.faq')}}">FAQ</a>

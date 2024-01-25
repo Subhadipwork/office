@@ -73,6 +73,18 @@
                                 </div>
                             </div>
 
+                            
+                            <div class="mb-3 row">
+                                <label for="category_image" class="col-sm-2 col-form-label">Upload Subcategory Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="category_image" placeholder="Subcategory Image" onchange="previewImage(event)">
+                                    <img id="image_preview" src="" alt="Preview of Image" style="max-width: 200px; max-height: 200px;" />
+                                    @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Choose Status</label>
                                 <div class="col-sm-6">

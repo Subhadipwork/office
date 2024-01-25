@@ -49,4 +49,17 @@ public function destroy($id){
         return response()->json(['status' => false, 'message' => $e->getMessage()]);
     }
 }
+
+
+public function status($id)
+{
+    try {
+        $faq = Banner::findOrFail($id);
+        $faq->status = $faq->status == 1 ? 0 : 1;
+        $faq->save();
+        return response()->json(['status' => true, 'message' => 'Status updated successfully.']);
+    } catch (\Exception $e) {
+        return response()->json(['status' => false, 'message' => $e->getMessage()]);
+    }
+}
 }

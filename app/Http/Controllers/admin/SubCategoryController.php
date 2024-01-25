@@ -29,20 +29,24 @@ class SubCategoryController extends Controller
         $validated = $request->validate([
             'category'=>'required',
             'name'=>'required',
-            'status'=>'required|in:1,0'
+            'status'=>'required|in:1,0',
+            'image' => 'required',
         ]);
     
         $subcategory = new Subcategory();
         $subcategory->category_id = $request->category;
         $subcategory->subcategory_name = $request->name;
+        $subcategory->image = $request->image;
         $subcategory->status = $request->status;
     
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'sub_cate'.time() . '.' . $file->getClientOriginalExtension();
-            $filePath = $request->file('image')->storeAs('public/uploaded/subcategory', $filename);
+            // $filePath = $request->file('image')->storeAs('public/uploaded/subcategory', $filename);
+            $file->move(public_path('uploads/subcategory'), $filename);
             $subcategory->image = $filename;
         }
+        
     
         if($subcategory->save()) {
             return redirect()->back()->with('success', 'Subcategory created successfully');

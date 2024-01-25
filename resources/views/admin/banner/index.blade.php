@@ -57,7 +57,7 @@
                                                     <img src="{{ asset('uploads/banner/' . $item->image) }}" alt="" width="200px">
                                                 </td>
                                                 <td>
-                                                    <input type="checkbox" class="status-toggle" data-url="{{ route('admin.faq.status', $item->id) }}" data-id="{{ $item->id }}" data-type="status"
+                                                    <input type="checkbox" class="status-toggle" data-url="{{ route('admin.banner.status', $item->id) }}" data-id="{{ $item->id }}" data-type="status"
                                                         id="status-switch{{ $item->id }}" switch="none" {{ $item->status == 1 ? 'checked' : '' }}>
                                                     <label for="status-switch{{ $item->id }}" data-on-label="Show" data-off-label="Hide"></label>
                                                 </td>
