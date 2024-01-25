@@ -42,13 +42,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="project.php">Project</a>
+                            <a class="nav-link" href="{{route('frontend.project')}}">Project</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.php">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="faq.php">FAQ</a>
+                            <a class="nav-link" href="{{route('frontend.faq')}}">FAQ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contactUs.php">Contact</a>
@@ -133,57 +133,32 @@
                 <h5>Enquiry From</h5>
                 <button class="CloseBtn" onclick="closeBtn()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form>
+            <form class="EnquiryForm_class" method="POST" action="{{route('frontend.enquiry.store')}}">
                 <div class="fromInput">
                     <label form="name">Name<span>*</span> </label>
-                    <input type="text" placeholder="Your Name">
+                    <input type="text" name="name" id="name" placeholder="Your Name">
                 </div>
                 <div class="fromInput">
                     <label form="name">Phone No.<span>*</span> </label>
-                    <input type="number" placeholder="Phone No.">
+                    <input type="number" name="phone" id="phone" placeholder="Phone No.">
                 </div>
                 <div class="fromInput">
                     <label form="name">Category<span>*</span> </label>
-                    <select>
+                    <select name="category" id="category">
                         <option>Product Category</option>
-                        <option>Outdoor Sofa Set</option>
-                        <option>Outdoor Chair Table Set</option>
-                        <option>Outdoor Sofa Set</option>
-                        <option>Outdoor Chair Table Set</option>
-                        <option>Outdoor Sofa Set</option>
-                        <option>Outdoor Chair Table Set</option>
+                        @foreach (allcategory() as $category)
+                        <option>{{$category->category_name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="fromInput">
                     <label form="name">Comment<span>*</span> </label>
-                    <textarea type="comment" placeholder="Message"></textarea>
+                    <textarea type="comment" name="comment" id="comment" placeholder="Message"></textarea>
                 </div>
                 <div class="enqfromSubmit">
-                    <button class="EnqSubmitbtn" type="button">Submit</button>
+                    <button class="EnqSubmitbtn enquirysubmit"  type="button">Submit</button>
                 </div>
             </form>
         </div>
     </section>
 
-
-
-    <!-- sidebar Dropdown arrow -->
-    <script>
-        document.querySelector('.dropbtnSide').addEventListener('click', function() {
-            if (document.getElementById('mysidebarDropdown').classList.contains('show')) {
-                document.querySelector('.clsSideSpan').innerHTML = '<i class="fa-solid fa-angle-up"></i>';
-            } else {
-                document.querySelector('.clsSideSpan').innerHTML = '<i class="fa-solid fa-angle-down"></i>';
-            }
-        })
-
-        /**header-sticky****/
-        function stickyHeader() {
-            if (window.scrollY > 100) {
-                document.getElementById('header').classList.add('sticky');
-            } else {
-                document.getElementById('header').classList.remove('sticky');
-            }
-        }
-        window.addEventListener('scroll', stickyHeader);
-    </script>

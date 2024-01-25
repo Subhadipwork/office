@@ -11,6 +11,8 @@ class Project extends Model
 
     protected $guarded = [];
 
+    protected $with = ['projectimage', 'category'];
+
     public function category(){
 
         return $this->belongsTo(Category::class);

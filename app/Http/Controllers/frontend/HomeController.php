@@ -5,6 +5,8 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Faq;
+use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -26,7 +28,16 @@ class HomeController extends Controller
 
     public function category($id){
 
-        $category =Category::with('product')->get();
-        return view('frontend.category.index',compact('category'));
+        $product =Category::with('product')->first();
+        $subcategory = Subcategory::where('category_id',$id)->get();
+        return view('frontend.category.index',compact('product','subcategory'));
     }
+
+    public function faq(){
+            
+        $faqs = Faq::where('status',1)->get();
+        return view('frontend.faq.index',compact('faqs'));
+    }
+
+    
 }
