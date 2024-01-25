@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutUs;
 use App\Models\Banner;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -28,5 +30,21 @@ class HomeController extends Controller
 
         $category =Category::with('product')->get();
         return view('frontend.category.index',compact('category'));
+    }
+    public function blog(){
+
+        $blogs =Blog::orderBy('id','DESC')->get();
+        return view('frontend.blog.blog',compact('blogs'));
+    }
+    public function blogDetails($id){
+
+        $SingleBlog =Blog::where('id',$id)->first();
+        return view('frontend.blog.blogDetails',compact('SingleBlog'));
+    }
+
+    public function aboutUs(){
+
+        $aboutUs =AboutUs::first();
+        return view('frontend.aboutUs.aboutUs',compact('aboutUs'));
     }
 }

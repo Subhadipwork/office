@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('blog_description');
             $table->string('blog_image');
             $table->string('blog_author')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

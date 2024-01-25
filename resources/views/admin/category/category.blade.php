@@ -21,14 +21,32 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                {{-- flash massage start --}}
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                  {{-- flash massage end --}}
+                    
                     <div class="card-body">
                         <h4 class="card-title">Add Category</h4>
+
                         {{-- <a href="{{ route('category.index') }}" class="btn btn-primary" style="margin-bottom: 10px; margin-right: 10px;">Back</a> --}}
                         <div style="text-align: right;">
                             <a href="{{ route('category.index') }}" class="btn btn-primary" style="margin-bottom: 10px; margin-right: 10px;text-align: right;">Back</a>
                         </div>
 
-                        <form action="{{ route('category.store') }}" method="POST" id="categoryForm">
+                        <form action="{{ route('category.store') }}" method="POST" id="categoryForm" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3 row">
                                 <label for="category-name" class="col-sm-2 col-form-label">Category Name</label>
@@ -40,7 +58,7 @@
                     
                
                             <div class="mb-3 row">
-                                <label for="category_image" class="col-sm-2 col-form-label">Upload Subcategory Image</label>
+                                <label for="category_image" class="col-sm-2 col-form-label">Upload Category Image</label>
                                 <div class="col-sm-10">
                                     <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="category_image" placeholder="Subcategory Image" onchange="previewImage(event)">
                                     <img id="image_preview" src="" alt="Preview of Image" style="max-width: 200px; max-height: 200px;" />

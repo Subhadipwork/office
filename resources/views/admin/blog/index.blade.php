@@ -81,21 +81,20 @@
                                                     </div>
 
                                                 <td>
-                                                    <img src="{{ asset('uploads/blog/' . $item->image) }}" style="width: 50px; height: 50px; object-fit: cover;">
+                                                    <img src="{{ asset('uploads/blogs/' . $item->blog_image) }}" style="width: 50px; height: 50px; object-fit: cover;">
                                                 </td>
+
+                                                <td>{{ $item->blog_author}}</td>
                                                 <td>
-                                                    <input type="checkbox" class="status-toggle"
-                                                        data-category-id="{{ $item->id }}" data-type="status"
-                                                        id="status-switch{{ $item->id }}" switch="none"
-                                                        {{ $item->status == 1 ? 'checked' : '' }}>
-                                                    <label for="status-switch{{ $item->id }}" data-on-label="Show"
-                                                        data-off-label="Hide"></label>
+                                                    <input type="checkbox" class="status-toggle" data-url="{{ route('admin.blog.status', $item->id) }}" data-id="{{ $item->id }}" data-type="status"
+                                                        id="status-switch{{ $item->id }}" switch="none" {{ $item->status == 1 ? 'checked' : '' }}>
+                                                    <label for="status-switch{{ $item->id }}" data-on-label="Show" data-off-label="Hide"></label>
                                                 </td>
 
 
+                                                
                                                 <td>
-                                                    <a href="{{ route('blog.destroy', $item->id) }}"
-                                                        class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="#" class="btn btn-danger btn-sm delete" data-id="{{ $item->id }}" data-url="{{ route('blog.destroy', $item->id) }}">Delete</a>
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('blog.edit', $item->id) }}"
@@ -144,22 +143,71 @@
 
     <script src="{{ asset('admin_assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
   
+    <script>
+        $('.delete').click(function() {
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'method': 'DELETE',
+                    },
+                    success: function(data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-right',
+                            iconColor: 'success',
+                            customClass: {
+                                popup: 'colored-toast'
+                            },
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: true
+                        });
+                        if (data.status == true) {
+                            
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            })
+                            location.reload();
+                        }else{
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            })
+                        }
+                    }
+                })
+            }
+            })
 
+            
+        });
+    </script>
     <script>
     $(document).ready(function() {
         $('.status-toggle').change(function() {
-            var categoryId = $(this).data('category-id');
-            var status = this.checked ? 1 : 0;
+            var categoryId = $(this).data('id');
             var type = $(this).data('type');
+            var url = $(this).data('url');
 
             $.ajax({
-                url: "{{ route('category.updateStatus') }}",
-                type: "POST",
-                data: {
-                    id: categoryId,
-                    status: status,
-                    type: type
-                },
+                url: url,
+                type: "get",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
