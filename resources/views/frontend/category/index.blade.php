@@ -238,103 +238,31 @@
                     </div>
                 </div>
             </div>
+            @if(!empty($product))
             <div class="col-lg-9 col-md-12">
                 <div class="border-bottom border-color-1 mb-4">
-                    <h3 class="section-title section-title__sm mb-0 pb-2">Outdoor Furniture</h3>
+                    <h3 class="section-title section-title__sm mb-0 pb-2">{{$product->category_name}}</h3>
                 </div>
                 <div class="recommendTabSection">
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg1.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Coffee table Sets</h6>
-                        </div>
-                    </a>
-
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg2.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Gazebo / Cabana</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg3.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Garden Furniture</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg4.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Cane /Rattan Furniture</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg5.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Coffee table Sets</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg3.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Garden Furniture</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg1.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Coffee table Sets</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg2.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Gazebo / Cabana</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg1.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Coffee table Sets</h6>
-                        </div>
-                    </a>
-
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg2.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Gazebo / Cabana</h6>
-                        </div>
-                    </a>
-                    <a href="FurnitureDtls.php" class="recommendCard">
-                        <div class="recommendImg">
-                            <img src="assets/images/tabimg3.jpg" alt="..." />
-                        </div>
-                        <div class="recommendItem">
-                            <h6>Garden Furniture</h6>
-                        </div>
-                    </a>
+                    @if(!empty($product->product))
+                        @foreach($product->product as $product)
+                        <a href="{{route('product.details', $product->id)}}" class="recommendCard">
+                            <div class="recommendImg">
+                                @if(!empty($product->productimage->first()->image))
+                                <img src="{{asset('uploads/products/'.$product->productimage->first()->image)}}" alt="" />
+                                @else
+                                <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="">
+                                @endif
+                            </div>
+                            <div class="recommendItem">
+                                <h6>{{$product->titel}}</h6>
+                            </div>
+                        </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>

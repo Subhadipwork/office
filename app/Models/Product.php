@@ -24,5 +24,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id')
             ->where('type', 'product');
     }
+
+    public function singleimage(){
+
+        return $this->hasOne(ProductImage::class, 'product_id')
+            ->where('type', 'product');
+    }
     
 }
