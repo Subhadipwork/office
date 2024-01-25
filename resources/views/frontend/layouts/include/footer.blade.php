@@ -176,6 +176,56 @@
 
     
 </script>
+
+
+    <!-- sidebar Dropdown arrow -->
+    <script>
+        document.querySelector('.dropbtnSide').addEventListener('click', function() {
+            if (document.getElementById('mysidebarDropdown').classList.contains('show')) {
+                document.querySelector('.clsSideSpan').innerHTML = '<i class="fa-solid fa-angle-up"></i>';
+            } else {
+                document.querySelector('.clsSideSpan').innerHTML = '<i class="fa-solid fa-angle-down"></i>';
+            }
+        })
+
+        /**header-sticky****/
+        function stickyHeader() {
+            if (window.scrollY > 100) {
+                document.getElementById('header').classList.add('sticky');
+            } else {
+                document.getElementById('header').classList.remove('sticky');
+            }
+        }
+        window.addEventListener('scroll', stickyHeader);
+    </script>
+
+    <script>
+        $(document).ready(function() {
+           $('.enquirysubmit').click(function(){
+            var name = $('#name').val();
+            var phone = $('#phone').val();
+            var category = $('#category').val();
+            var comment = $('#comment').val();
+         
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('frontend.enquiry.store') }}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "category": category,
+                        "comment": comment,
+                        "phone": phone
+                        
+                    },
+                    success: function(data) {
+                       location.reload();
+                    }
+                })
+           })
+        })
+    </script>
+@stack('scripts')
 </body>
 
 </html>

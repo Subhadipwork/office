@@ -10,7 +10,10 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\frontend\ContactUsController;
 use App\Http\Controllers\frontend\HomeController;
+use App\Http\Controllers\frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\frontend\ProjectController as FrontendProjectController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Artisan;
@@ -100,16 +103,21 @@ Route::get('admin/banner/status/{id}', [BannerController::class, 'status'])->nam
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/category/{id}', [HomeController::class, 'category'])->name('category');
+Route::get('/subcategory/{id}', [HomeController::class, 'subcategory'])->name('subcategory');
+Route::get('front/product/{id}', [FrontendProductController::class, 'index'])->name('product.details');
+Route::get('/project',[FrontendProjectController::class,'index'])->name('frontend.project');
+Route::get('/project/{id}', [FrontendProjectController::class, 'details'])->name('frontend.project.details');
+
 
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blog/{id}', [HomeController::class, 'blogDetails'])->name('blogDetails');
 
 Route::get('/AboutUs', [HomeController::class, 'aboutUs'])->name('aboutUs');
 
+Route::post('contact', [ContactUsController::class, 'store'])->name('frontend.contact.store');
 
+Route::post('enquiry', [ContactUsController::class, 'enquiry'])->name('frontend.enquiry.store');
 
-
-
-
+Route::get('/faq', [HomeController::class, 'faq'])->name('frontend.faq');
 
 
